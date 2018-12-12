@@ -55,6 +55,9 @@ namespace PhotoFrame
         //
         private void frmMain_Load( object sender, EventArgs e )
         {
+            // カレントディレクトリをexeのフォルダに変更
+            Directory.SetCurrentDirectory( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ) );
+
             // フォームサイズの初期値は、画面の20%
             this.Width = (int)(Screen.GetBounds( this ).Width * 0.20);
 

@@ -37,6 +37,7 @@
             this.ToolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ToolStripMenuItemTopMost = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pctBox)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -61,40 +62,41 @@
             this.ToolStripMenuItemInfo,
             this.toolStripMenuItem,
             this.ToolStripMenuItemChangeFormSize,
+            this.ToolStripMenuItemTopMost,
             this.ToolStripMenuItemSettings,
             this.ToolStripMenuItemExit});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(113, 98);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 142);
             // 
             // ToolStripMenuItemInfo
             // 
             this.ToolStripMenuItemInfo.Name = "ToolStripMenuItemInfo";
-            this.ToolStripMenuItemInfo.Size = new System.Drawing.Size(112, 22);
+            this.ToolStripMenuItemInfo.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItemInfo.Text = "情報";
             // 
             // toolStripMenuItem
             // 
             this.toolStripMenuItem.Name = "toolStripMenuItem";
-            this.toolStripMenuItem.Size = new System.Drawing.Size(109, 6);
+            this.toolStripMenuItem.Size = new System.Drawing.Size(157, 6);
             // 
             // ToolStripMenuItemChangeFormSize
             // 
             this.ToolStripMenuItemChangeFormSize.Name = "ToolStripMenuItemChangeFormSize";
-            this.ToolStripMenuItemChangeFormSize.Size = new System.Drawing.Size(112, 22);
+            this.ToolStripMenuItemChangeFormSize.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItemChangeFormSize.Text = "最大化";
             this.ToolStripMenuItemChangeFormSize.Click += new System.EventHandler(this.ToolStripMenuItemChangeFormSize_Click);
             // 
             // ToolStripMenuItemSettings
             // 
             this.ToolStripMenuItemSettings.Name = "ToolStripMenuItemSettings";
-            this.ToolStripMenuItemSettings.Size = new System.Drawing.Size(112, 22);
+            this.ToolStripMenuItemSettings.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItemSettings.Text = "設定";
             this.ToolStripMenuItemSettings.Click += new System.EventHandler(this.ToolStripMenuItemSettings_Click);
             // 
             // ToolStripMenuItemExit
             // 
             this.ToolStripMenuItemExit.Name = "ToolStripMenuItemExit";
-            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(112, 22);
+            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItemExit.Text = "終了";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
@@ -105,6 +107,14 @@
             this.notifyIcon.Text = "notify";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseUp);
+            // 
+            // ToolStripMenuItemTopMost
+            // 
+            this.ToolStripMenuItemTopMost.CheckOnClick = true;
+            this.ToolStripMenuItemTopMost.Name = "ToolStripMenuItemTopMost";
+            this.ToolStripMenuItemTopMost.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemTopMost.Text = "常に前面に表示";
+            this.ToolStripMenuItemTopMost.CheckedChanged += new System.EventHandler(this.ToolStripMenuItemTopMost_CheckedChanged);
             // 
             // frmMain
             // 
@@ -135,6 +145,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInfo;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemChangeFormSize;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemTopMost;
     }
 }
 

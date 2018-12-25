@@ -69,6 +69,9 @@ namespace PhotoFrame
                 this.Width = mSettings.FormWidth;
                 this.Bounds = mSettings.FormBounds;
             }
+
+            // 常に前面に表示
+            this.TopMost = mSettings.TopMost;
         }
 
         //
@@ -242,6 +245,15 @@ namespace PhotoFrame
                 ToolStripMenuItemChangeFormSize.Text = "最大化";
             }
             showPicture();
+        }
+
+        //
+        // コンテキストメニューの常に前面に表示をクリック
+        //
+        private void ToolStripMenuItemTopMost_CheckedChanged( object sender, EventArgs e )
+        {
+            mSettings.TopMost = ((ToolStripMenuItem)sender).Checked;
+            this.TopMost = mSettings.TopMost;
         }
 
         //
@@ -511,6 +523,7 @@ namespace PhotoFrame
         public string       LastShowPictureFilePath = "";               // 最後に表示した画像ファイルのパス
         public Rectangle    FormBounds              = Rectangle.Empty;  // フォーム位置
         public int          FormWidth               = 0;                // フォーム幅
+        public bool         TopMost                 = false;            // 常に前面に表示
         public int          FrameSize               = 0;                // 枠の幅
         public int          FrameColorWin32         = ColorTranslator.ToWin32( Color.WhiteSmoke ); // 枠の色 (Color型でシリアライズできないのでWindowsカラーで扱う)
     }

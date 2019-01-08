@@ -86,6 +86,9 @@ namespace PhotoFrame
                 restoreFormBounds( mSettings.FormBounds );
             }
 
+            // ランダム表示
+            ToolStripMenuItemRandomPicture.Checked = mSettings.RamdomPicture;
+
             // 自動更新
             ToolStripMenuItemAutoUpdate.Checked = mSettings.AutoUpdateEnable;
             ToolStripMenuItemAutoUpdate_Click( ToolStripMenuItemAutoUpdate, null );
@@ -162,8 +165,8 @@ namespace PhotoFrame
                     Rectangle   wa  = sc.WorkingArea;
 
                     // 吸着エリアのサイズ
-                    int w = (int)(wa.Width * 0.01);
-                    int h = (int)(wa.Height * 0.01);
+                    int w = (int)(wa.Width * 0.02);
+                    int h = (int)(wa.Height * 0.02);
 
                     // 吸着エリアは、一旦画面左上でRectangleを作成し、
                     Rectangle LeftTop       = new Rectangle( wa.X, wa.Y, w, h );
@@ -256,7 +259,7 @@ namespace PhotoFrame
                 break;
 
             case Keys.Left:         // カーソルキー左で、前の画像
-                showPrevPicture();
+                showLastPicture();
                 break;
 
             case Keys.Right:        // カーソルキー右で、次の画像
@@ -293,15 +296,15 @@ namespace PhotoFrame
         //
         private void ToolStripMenuItemLastPicture_Click( object sender, EventArgs e )
         {
-            showPrevPicture();
+            showLastPicture();
         }
 
         //
-        // コンテキストメニューのランダムをクリック
+        // コンテキストメニューのランダム表示をクリック
         //
         private void ToolStripMenuItemRandomPicture_Click( object sender, EventArgs e )
         {
-            showRandomPicture();
+            mSettings.RamdomPicture = ((ToolStripMenuItem)sender).Checked;
         }
 
         //
@@ -590,9 +593,14 @@ namespace PhotoFrame
         //
         private void showNextPicture()
         {
-            mPictIndex++;
-            if ( mPictIndex >= mPictureList.Count ) {
-                mPictIndex = 0;
+            if ( mSettings.RamdomPicture ) {
+                Random r = new Random();
+                mPictIndex = r.Next( 0, (mPictureList.Count - 1) );
+            } else {
+                mPictIndex++;
+                if ( mPictIndex >= mPictureList.Count ) {
+                    mPictIndex = 0;
+                }
             }
             showPicture();
         }
@@ -600,22 +608,17 @@ namespace PhotoFrame
         //
         // 前の画像を表示
         //
-        private void showPrevPicture()
+        private void showLastPicture()
         {
-            mPictIndex--;
-            if ( mPictIndex < 0 ) {
-                mPictIndex = mPictureList.Count - 1;
+            if ( mSettings.RamdomPicture ) {
+                Random r = new Random();
+                mPictIndex = r.Next( 0, (mPictureList.Count - 1) );
+            } else {
+                mPictIndex--;
+                if ( mPictIndex < 0 ) {
+                    mPictIndex = mPictureList.Count - 1;
+                }
             }
-            showPicture();
-        }
-
-        //
-        // 画像をランダムに表示
-        //
-        private void showRandomPicture()
-        {
-            Random r = new Random();
-            mPictIndex = r.Next( 0, (mPictureList.Count - 1) );
             showPicture();
         }
     }
@@ -633,6 +636,7 @@ namespace PhotoFrame
         public int          FrameColorWin32         = ColorTranslator.ToWin32( Color.WhiteSmoke ); // 枠の色 (Color型でシリアライズできないのでWindowsカラーで扱う)
         public int          AutoUpdateMin           = 5;
         public bool         AutoUpdateEnable        = false;
+        public bool         RamdomPicture           = false;
 
         //
         // 設定ファイルのパス

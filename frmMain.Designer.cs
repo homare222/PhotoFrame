@@ -34,10 +34,10 @@
             this.ToolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemChangeFormSize = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemTopMost = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.ToolStripMenuItemTopMost = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pctBox)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +66,7 @@
             this.ToolStripMenuItemSettings,
             this.ToolStripMenuItemExit});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(161, 142);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 120);
             // 
             // ToolStripMenuItemInfo
             // 
@@ -85,6 +85,14 @@
             this.ToolStripMenuItemChangeFormSize.Size = new System.Drawing.Size(160, 22);
             this.ToolStripMenuItemChangeFormSize.Text = "最大化";
             this.ToolStripMenuItemChangeFormSize.Click += new System.EventHandler(this.ToolStripMenuItemChangeFormSize_Click);
+            // 
+            // ToolStripMenuItemTopMost
+            // 
+            this.ToolStripMenuItemTopMost.CheckOnClick = true;
+            this.ToolStripMenuItemTopMost.Name = "ToolStripMenuItemTopMost";
+            this.ToolStripMenuItemTopMost.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemTopMost.Text = "常に前面に表示";
+            this.ToolStripMenuItemTopMost.CheckedChanged += new System.EventHandler(this.ToolStripMenuItemTopMost_CheckedChanged);
             // 
             // ToolStripMenuItemSettings
             // 
@@ -108,14 +116,6 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseUp);
             // 
-            // ToolStripMenuItemTopMost
-            // 
-            this.ToolStripMenuItemTopMost.CheckOnClick = true;
-            this.ToolStripMenuItemTopMost.Name = "ToolStripMenuItemTopMost";
-            this.ToolStripMenuItemTopMost.Size = new System.Drawing.Size(160, 22);
-            this.ToolStripMenuItemTopMost.Text = "常に前面に表示";
-            this.ToolStripMenuItemTopMost.CheckedChanged += new System.EventHandler(this.ToolStripMenuItemTopMost_CheckedChanged);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -128,6 +128,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Shown += new System.EventHandler(this.frmMain_Shown);
+            this.Move += new System.EventHandler(this.frmMain_Move);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.frmMain_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pctBox)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);

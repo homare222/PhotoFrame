@@ -144,6 +144,53 @@ namespace PhotoFrame
         }
 
         //
+        // フォーム移動時
+        //
+        private void frmMain_Move( object sender, EventArgs e )
+        {
+            // 画面端に吸着する処理
+            foreach ( Screen sc in Screen.AllScreens ) {
+                if ( sc.WorkingArea.Contains( this.Bounds ) ) {
+                    Rectangle   wa  = sc.WorkingArea;
+
+                    // 吸着エリアのサイズ
+                    int w = (int)(wa.Width * 0.01);
+                    int h = (int)(wa.Height * 0.01);
+
+                    // 吸着エリアは、一旦画面左上でRectangleを作成し、
+                    Rectangle LeftTop       = new Rectangle( wa.X, wa.Y, w, h );
+                    Rectangle LeftBottom    = new Rectangle( wa.X, wa.Y, w, h );
+                    Rectangle RightTop      = new Rectangle( wa.X, wa.Y, w, h );
+                    Rectangle RightBottom   = new Rectangle( wa.X, wa.Y, w, h );
+
+                    // 位置をオフセットして四隅に
+                    LeftTop.Offset( 0, 0 );
+                    LeftBottom.Offset( 0, (wa.Height - h) );
+                    RightTop.Offset( (wa.Width - w), 0 );
+                    RightBottom.Offset( (wa.Width - w), (wa.Height - h) );
+
+                    // 吸着の判定
+                    if ( LeftTop.IntersectsWith( this.Bounds ) ) {      // 左上に吸着
+                        this.Location = new Point( wa.X, wa.Y );
+                        return;
+                    }
+                    if ( LeftBottom.IntersectsWith( this.Bounds ) ) {   // 左下に吸着
+                        this.Location = new Point( wa.X, wa.Y + (wa.Height - this.Height) );
+                        return;
+                    }
+                    if ( RightTop.IntersectsWith( this.Bounds ) ) {     // 右上に吸着
+                        this.Location = new Point( wa.X + (wa.Width - this.Width), wa.Y );
+                        return;
+                    }
+                    if ( RightBottom.IntersectsWith( this.Bounds ) ) {  // 右下に吸着
+                        this.Location = new Point( wa.X + (wa.Width - this.Width), wa.Y + (wa.Height - this.Height) );
+                        return;
+                    }
+                }
+            }
+        }
+
+        //
         // 枠の設定
         //
         private void setPictureFrame()

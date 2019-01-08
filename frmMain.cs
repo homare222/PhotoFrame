@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Microsoft.Win32;
 
 namespace PhotoFrame
 {
@@ -34,6 +35,9 @@ namespace PhotoFrame
         {
             // デザイナー サポートに必要なメソッド(自動生成)
             InitializeComponent();
+
+            // ディスプレイ設定変更のイベントハンドラ
+            SystemEvents.DisplaySettingsChanged += new EventHandler( SystemEvents_DisplaySettingChanged );
         }
 
         //
@@ -51,6 +55,14 @@ namespace PhotoFrame
         }
 
         //
+        // ディスプレイ設定変更のイベント
+        //
+        private void SystemEvents_DisplaySettingChanged( object sender, EventArgs e )
+        {
+            restoreFormBounds( this.Bounds );
+        }
+
+        //
         // フォームロード時
         //
         private void frmMain_Load( object sender, EventArgs e )
@@ -60,18 +72,35 @@ namespace PhotoFrame
 
             // フォームサイズの初期値は、画面の20%
             this.Width = (int)(Screen.GetBounds( this ).Width * 0.20);
+            this.Height = this.Width;
 
             // 設定を読込
-            loadSettings( ref mSettings );
+            Settings.Load( ref mSettings );
 
             // フォーム位置を復元
-            if ( mSettings.PictureDirectoryPath.Length != 0 ) {
-                this.Width = mSettings.FormWidth;
-                this.Bounds = mSettings.FormBounds;
+            if ( mSettings.FormBounds != Rectangle.Empty ) {
+                restoreFormBounds( mSettings.FormBounds );
             }
 
             // 常に前面に表示
             this.TopMost = mSettings.TopMost;
+            ToolStripMenuItemTopMost.Checked = mSettings.TopMost;
+        }
+
+        //
+        // フォームの位置とサイズを復元
+        //
+        private void restoreFormBounds( Rectangle FormBounds )
+        {
+            foreach ( Screen sc in Screen.AllScreens ) {
+                if ( sc.WorkingArea.Contains( FormBounds ) ) {  // どれかの画面に収まっている場合は、位置を復元
+                    this.Bounds = FormBounds;
+                    return;
+                }
+            }
+
+            // どの画面にも収まっていない場合は、プライマリ画面の右下に表示
+            this.Location = new Point( (Screen.PrimaryScreen.WorkingArea.Width - this.Width), (Screen.PrimaryScreen.WorkingArea.Height - this.Height) );
         }
 
         //
@@ -108,43 +137,10 @@ namespace PhotoFrame
         private void frmMain_FormClosed( object sender, FormClosedEventArgs e )
         {
             // フォームの情報を保存
-            mSettings.FormWidth = this.Width;
             mSettings.FormBounds = this.Bounds;
 
             // 設定を保存
-            saveSettings( ref mSettings );
-        }
-
-        //
-        // 設定を読込
-        //
-        public void loadSettings( ref Settings settings )
-        {
-            try {
-                XmlSerializer   slzr    = new XmlSerializer( typeof( Settings ) );
-                StreamReader    sr      = new StreamReader( Application.ProductName + "Settings.xml", new UTF8Encoding( false ) );
-                settings = (Settings)slzr.Deserialize( sr );
-                sr.Close();
-            }
-            catch ( Exception ex ) {
-                Debug.WriteLine( GetType().Name + ":" + MethodBase.GetCurrentMethod().Name + ":" + ex.Message );
-            }
-        }
-
-        //
-        // 設定を保存
-        //
-        public void saveSettings( ref Settings settings )
-        {
-            try {
-                XmlSerializer   slzr    = new XmlSerializer( typeof( Settings ) );
-                StreamWriter    sw      = new StreamWriter( Application.ProductName + "Settings.xml", false, new UTF8Encoding( false ) );
-                slzr.Serialize( sw, settings );
-                sw.Close();
-            }
-            catch ( Exception ex ) {
-                Debug.WriteLine( GetType().Name + ":" + MethodBase.GetCurrentMethod().Name + ":" + ex.Message );
-            }
+            Settings.Save( ref mSettings );
         }
 
         //
@@ -195,14 +191,12 @@ namespace PhotoFrame
         {
             switch ( e.KeyCode ) {
             case Keys.Up:           // カーソルキー上で、5%ずつ大きく
-                this.Width = (int)(this.Width * 1.05);
-                this.Height = (int)(this.Height * 1.05);
+                this.SetBounds( 0, 0, (int)(this.Width * 1.05), (int)(this.Height * 1.05), BoundsSpecified.Size );
                 pctBox.Refresh();
                 break;
 
             case Keys.Down:         // カーソルキー下で、5%ずつ小さく
-                this.Width = (int)(this.Width * 0.95);
-                this.Height = (int)(this.Height * 0.95);
+                this.SetBounds( 0, 0, (int)(this.Width * 0.95), (int)(this.Height * 0.95), BoundsSpecified.Size );
                 pctBox.Refresh();
                 break;
 
@@ -522,9 +516,43 @@ namespace PhotoFrame
         public string       PictureDirectoryPath    = "";               // 画像ディレクトリのパス
         public string       LastShowPictureFilePath = "";               // 最後に表示した画像ファイルのパス
         public Rectangle    FormBounds              = Rectangle.Empty;  // フォーム位置
-        public int          FormWidth               = 0;                // フォーム幅
         public bool         TopMost                 = false;            // 常に前面に表示
         public int          FrameSize               = 0;                // 枠の幅
         public int          FrameColorWin32         = ColorTranslator.ToWin32( Color.WhiteSmoke ); // 枠の色 (Color型でシリアライズできないのでWindowsカラーで扱う)
+
+        //
+        // 設定ファイルのパス
+        //
+        private static string FilePath()
+        {
+            // exeと同じディレクトリの"(アプリケーション名)Settings.xml"
+            return Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ) + @"\" + Application.ProductName + "Settings.xml";
+        }
+
+        //
+        // 設定を保存
+        //
+        public static void Load( ref Settings Settings )
+        {
+            if ( !File.Exists( FilePath() ) ) {
+                return;
+            }
+
+            XmlSerializer   slzr    = new XmlSerializer( typeof( Settings ) );
+            StreamReader    sr      = new StreamReader( FilePath(), new UTF8Encoding( false ) );
+            Settings = (Settings)slzr.Deserialize( sr );
+            sr.Close();
+        }
+
+        //
+        // 設定を読込
+        //
+        public static void Save( ref Settings Settings )
+        {
+            XmlSerializer   slzr    = new XmlSerializer( typeof( Settings ) );
+            StreamWriter    sw      = new StreamWriter( FilePath(), false, new UTF8Encoding( false ) );
+            slzr.Serialize( sw, Settings );
+            sw.Close();
+        }
     }
 }

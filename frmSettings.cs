@@ -31,8 +31,9 @@ namespace PhotoFrame
             this.Text = "設定";
 
             txtPictureDirectoryPath.Text = settings.PictureDirectoryPath;
-            txtFrameSize.Text = settings.FrameSize.ToString();
+            txtFrameSize.Text = (settings.FrameSize * 100).ToString();
             lblFrameColor.BackColor = ColorTranslator.FromWin32( settings.FrameColorWin32 );
+            txtAutoUpdateMin.Text = settings.AutoUpdateMin.ToString();
         }
 
         //
@@ -112,12 +113,17 @@ namespace PhotoFrame
                 settings.PictureDirectoryPath = txtPictureDirectoryPath.Text;
             }
 
-            uint ui;
-            if ( uint.TryParse( txtFrameSize.Text, out ui ) ) {
-                settings.FrameSize = (int)ui;
+            double d;
+            if ( double.TryParse( txtFrameSize.Text, out d ) ) {
+                settings.FrameSize = d / 100;
             }
 
             settings.FrameColorWin32 = ColorTranslator.ToWin32( lblFrameColor.BackColor );
+
+            int i;
+            if ( int.TryParse( txtAutoUpdateMin.Text, out i ) ) {
+                settings.AutoUpdateMin = i;
+            }
 
             this.Close();
         }

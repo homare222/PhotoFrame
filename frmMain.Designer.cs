@@ -31,16 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.pctBox = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ToolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripMenuItemNextPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemLastPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemRandomPicture = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemChangeFormSize = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemTopMost = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripMenuItemInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.ToolStripMenuItemNextPicture = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemLastPicture = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemRandomPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemAutoUpdate = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pctBox)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -65,25 +66,36 @@
             this.ToolStripMenuItemNextPicture,
             this.ToolStripMenuItemLastPicture,
             this.ToolStripMenuItemRandomPicture,
-            this.ToolStripMenuItemChangeFormSize,
+            this.ToolStripMenuItemAutoUpdate,
             this.ToolStripMenuItemTopMost,
+            this.ToolStripMenuItemChangeFormSize,
             this.ToolStripMenuItemSettings,
             this.ToolStripMenuItemExit,
             this.toolStripMenuItem,
             this.ToolStripMenuItemInfo});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(161, 208);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 230);
             // 
-            // ToolStripMenuItemInfo
+            // ToolStripMenuItemNextPicture
             // 
-            this.ToolStripMenuItemInfo.Name = "ToolStripMenuItemInfo";
-            this.ToolStripMenuItemInfo.Size = new System.Drawing.Size(160, 22);
-            this.ToolStripMenuItemInfo.Text = "情報";
+            this.ToolStripMenuItemNextPicture.Name = "ToolStripMenuItemNextPicture";
+            this.ToolStripMenuItemNextPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemNextPicture.Text = "次の画像";
+            this.ToolStripMenuItemNextPicture.Click += new System.EventHandler(this.ToolStripMenuItemNextPicture_Click);
             // 
-            // toolStripMenuItem
+            // ToolStripMenuItemLastPicture
             // 
-            this.toolStripMenuItem.Name = "toolStripMenuItem";
-            this.toolStripMenuItem.Size = new System.Drawing.Size(157, 6);
+            this.ToolStripMenuItemLastPicture.Name = "ToolStripMenuItemLastPicture";
+            this.ToolStripMenuItemLastPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemLastPicture.Text = "前の画像";
+            this.ToolStripMenuItemLastPicture.Click += new System.EventHandler(this.ToolStripMenuItemLastPicture_Click);
+            // 
+            // ToolStripMenuItemRandomPicture
+            // 
+            this.ToolStripMenuItemRandomPicture.Name = "ToolStripMenuItemRandomPicture";
+            this.ToolStripMenuItemRandomPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemRandomPicture.Text = "ランダム";
+            this.ToolStripMenuItemRandomPicture.Click += new System.EventHandler(this.ToolStripMenuItemRandomPicture_Click);
             // 
             // ToolStripMenuItemChangeFormSize
             // 
@@ -114,6 +126,17 @@
             this.ToolStripMenuItemExit.Text = "終了";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
+            // toolStripMenuItem
+            // 
+            this.toolStripMenuItem.Name = "toolStripMenuItem";
+            this.toolStripMenuItem.Size = new System.Drawing.Size(157, 6);
+            // 
+            // ToolStripMenuItemInfo
+            // 
+            this.ToolStripMenuItemInfo.Name = "ToolStripMenuItemInfo";
+            this.ToolStripMenuItemInfo.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemInfo.Text = "情報";
+            // 
             // notifyIcon
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
@@ -122,26 +145,13 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseUp);
             // 
-            // ToolStripMenuItemNextPicture
+            // ToolStripMenuItemAutoUpdate
             // 
-            this.ToolStripMenuItemNextPicture.Name = "ToolStripMenuItemNextPicture";
-            this.ToolStripMenuItemNextPicture.Size = new System.Drawing.Size(160, 22);
-            this.ToolStripMenuItemNextPicture.Text = "次の画像";
-            this.ToolStripMenuItemNextPicture.Click += new System.EventHandler(this.ToolStripMenuItemNextPicture_Click);
-            // 
-            // ToolStripMenuItemLastPicture
-            // 
-            this.ToolStripMenuItemLastPicture.Name = "ToolStripMenuItemLastPicture";
-            this.ToolStripMenuItemLastPicture.Size = new System.Drawing.Size(160, 22);
-            this.ToolStripMenuItemLastPicture.Text = "前の画像";
-            this.ToolStripMenuItemLastPicture.Click += new System.EventHandler(this.ToolStripMenuItemLastPicture_Click);
-            // 
-            // ToolStripMenuItemRandomPicture
-            // 
-            this.ToolStripMenuItemRandomPicture.Name = "ToolStripMenuItemRandomPicture";
-            this.ToolStripMenuItemRandomPicture.Size = new System.Drawing.Size(160, 22);
-            this.ToolStripMenuItemRandomPicture.Text = "ランダム";
-            this.ToolStripMenuItemRandomPicture.Click += new System.EventHandler(this.ToolStripMenuItemRandomPicture_Click);
+            this.ToolStripMenuItemAutoUpdate.CheckOnClick = true;
+            this.ToolStripMenuItemAutoUpdate.Name = "ToolStripMenuItemAutoUpdate";
+            this.ToolStripMenuItemAutoUpdate.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemAutoUpdate.Text = "自動更新";
+            this.ToolStripMenuItemAutoUpdate.Click += new System.EventHandler(this.ToolStripMenuItemAutoUpdate_Click);
             // 
             // frmMain
             // 
@@ -177,6 +187,7 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemNextPicture;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLastPicture;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemRandomPicture;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAutoUpdate;
     }
 }
 

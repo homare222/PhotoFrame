@@ -39,6 +39,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnColorSelect = new System.Windows.Forms.Button();
             this.lblFrameColor = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAutoUpdateMin = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtPictureDirectoryPath
@@ -66,7 +69,7 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(196, 142);
+            this.btnOk.Location = new System.Drawing.Point(196, 198);
             this.btnOk.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(80, 30);
@@ -87,7 +90,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(282, 142);
+            this.btnCancel.Location = new System.Drawing.Point(282, 198);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 30);
@@ -119,9 +122,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(70, 89);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 18);
+            this.label3.Size = new System.Drawing.Size(20, 18);
             this.label3.TabIndex = 7;
-            this.label3.Text = "px";
+            this.label3.Text = "%";
             // 
             // label4
             // 
@@ -152,11 +155,41 @@
             this.lblFrameColor.Size = new System.Drawing.Size(50, 25);
             this.lblFrameColor.TabIndex = 11;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 111);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(104, 18);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "自動更新時の間隔";
+            // 
+            // txtAutoUpdateMin
+            // 
+            this.txtAutoUpdateMin.Location = new System.Drawing.Point(15, 133);
+            this.txtAutoUpdateMin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtAutoUpdateMin.Name = "txtAutoUpdateMin";
+            this.txtAutoUpdateMin.Size = new System.Drawing.Size(50, 25);
+            this.txtAutoUpdateMin.TabIndex = 13;
+            this.txtAutoUpdateMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(70, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 18);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "分";
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 185);
+            this.ClientSize = new System.Drawing.Size(374, 241);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtAutoUpdateMin);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFrameColor);
             this.Controls.Add(this.btnColorSelect);
             this.Controls.Add(this.label4);
@@ -193,5 +226,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnColorSelect;
         private System.Windows.Forms.Label lblFrameColor;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAutoUpdateMin;
+        private System.Windows.Forms.Label label6;
     }
 }

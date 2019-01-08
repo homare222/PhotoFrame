@@ -21,12 +21,13 @@ namespace PhotoFrame
         //
         // メンバ変数
         //
-        private Settings        mSettings       = new Settings();
-        private frmSettings     mFrmSettings    = new frmSettings();
+        private Settings        mSettings           = new Settings();
+        private frmSettings     mFrmSettings        = new frmSettings();
 
-        private List<string>    mPictureList    = new List<string>();
-        private int             mPictIndex      = 0;
+        private List<string>    mPictureList        = new List<string>();
+        private int             mPictIndex          = 0;
         private Point           mMousePoint;
+        private Timer           mAutoUpdateTimer    = new Timer();
 
         //
         // コンストラクタ
@@ -38,6 +39,9 @@ namespace PhotoFrame
 
             // ディスプレイ設定変更のイベントハンドラ
             SystemEvents.DisplaySettingsChanged += new EventHandler( SystemEvents_DisplaySettingChanged );
+
+            // 自動更新タイマ
+            mAutoUpdateTimer.Tick += new EventHandler( AutoUpdateTimerHandler );
         }
 
         //
@@ -81,6 +85,10 @@ namespace PhotoFrame
             if ( mSettings.FormBounds != Rectangle.Empty ) {
                 restoreFormBounds( mSettings.FormBounds );
             }
+
+            // 自動更新
+            ToolStripMenuItemAutoUpdate.Checked = mSettings.AutoUpdateEnable;
+            ToolStripMenuItemAutoUpdate_Click( ToolStripMenuItemAutoUpdate, null );
 
             // 常に前面に表示
             this.TopMost = mSettings.TopMost;
@@ -196,7 +204,7 @@ namespace PhotoFrame
         private void setPictureFrame()
         {
             if ( mSettings.FrameSize != 0 ) {
-                this.Padding = new Padding( mSettings.FrameSize );  // フォームにパディングを設定し、疑似的に枠に見せる
+                this.Padding = new Padding( (int)(this.Height * mSettings.FrameSize) );  // フォームにパディングを設定し、疑似的に枠に見せる
                 this.BackColor = ColorTranslator.FromWin32( mSettings.FrameColorWin32 );
             }
         }
@@ -297,6 +305,21 @@ namespace PhotoFrame
         }
 
         //
+        // コンテキストメニューの自動更新をクリック
+        //
+        private void ToolStripMenuItemAutoUpdate_Click( object sender, EventArgs e )
+        {
+            mSettings.AutoUpdateEnable = ((ToolStripMenuItem)sender).Checked;
+
+            if ( (mSettings.AutoUpdateEnable) && (mSettings.AutoUpdateMin > 0) ) {
+                mAutoUpdateTimer.Interval = mSettings.AutoUpdateMin * 60 * 1000;
+                mAutoUpdateTimer.Start();
+            } else {
+                mAutoUpdateTimer.Stop();
+            }
+        }
+
+        //
         // コンテキストメニューの最大化をクリック
         //
         private void ToolStripMenuItemChangeFormSize_Click( object sender, EventArgs e )
@@ -374,6 +397,14 @@ namespace PhotoFrame
             if ( e.Button == MouseButtons.Left ) {  // 左クリックでアクティブに
                 this.Activate();
             }
+        }
+
+        //
+        // 自動更新タイマハンドラ
+        //
+        private void AutoUpdateTimerHandler( object sender, EventArgs e )
+        {
+            showNextPicture();
         }
 
         //
@@ -598,8 +629,10 @@ namespace PhotoFrame
         public string       LastShowPictureFilePath = "";               // 最後に表示した画像ファイルのパス
         public Rectangle    FormBounds              = Rectangle.Empty;  // フォーム位置
         public bool         TopMost                 = false;            // 常に前面に表示
-        public int          FrameSize               = 0;                // 枠の幅
+        public double       FrameSize               = 0;                // 枠の幅
         public int          FrameColorWin32         = ColorTranslator.ToWin32( Color.WhiteSmoke ); // 枠の色 (Color型でシリアライズできないのでWindowsカラーで扱う)
+        public int          AutoUpdateMin           = 5;
+        public bool         AutoUpdateEnable        = false;
 
         //
         // 設定ファイルのパス

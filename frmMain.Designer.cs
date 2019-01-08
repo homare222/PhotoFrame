@@ -38,6 +38,9 @@
             this.ToolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ToolStripMenuItemNextPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemLastPicture = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemRandomPicture = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pctBox)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -59,14 +62,17 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItemInfo,
-            this.toolStripMenuItem,
+            this.ToolStripMenuItemNextPicture,
+            this.ToolStripMenuItemLastPicture,
+            this.ToolStripMenuItemRandomPicture,
             this.ToolStripMenuItemChangeFormSize,
             this.ToolStripMenuItemTopMost,
             this.ToolStripMenuItemSettings,
-            this.ToolStripMenuItemExit});
+            this.ToolStripMenuItemExit,
+            this.toolStripMenuItem,
+            this.ToolStripMenuItemInfo});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(161, 120);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 208);
             // 
             // ToolStripMenuItemInfo
             // 
@@ -116,6 +122,27 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseUp += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseUp);
             // 
+            // ToolStripMenuItemNextPicture
+            // 
+            this.ToolStripMenuItemNextPicture.Name = "ToolStripMenuItemNextPicture";
+            this.ToolStripMenuItemNextPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemNextPicture.Text = "次の画像";
+            this.ToolStripMenuItemNextPicture.Click += new System.EventHandler(this.ToolStripMenuItemNextPicture_Click);
+            // 
+            // ToolStripMenuItemLastPicture
+            // 
+            this.ToolStripMenuItemLastPicture.Name = "ToolStripMenuItemLastPicture";
+            this.ToolStripMenuItemLastPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemLastPicture.Text = "前の画像";
+            this.ToolStripMenuItemLastPicture.Click += new System.EventHandler(this.ToolStripMenuItemLastPicture_Click);
+            // 
+            // ToolStripMenuItemRandomPicture
+            // 
+            this.ToolStripMenuItemRandomPicture.Name = "ToolStripMenuItemRandomPicture";
+            this.ToolStripMenuItemRandomPicture.Size = new System.Drawing.Size(160, 22);
+            this.ToolStripMenuItemRandomPicture.Text = "ランダム";
+            this.ToolStripMenuItemRandomPicture.Click += new System.EventHandler(this.ToolStripMenuItemRandomPicture_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -147,6 +174,9 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInfo;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemChangeFormSize;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemTopMost;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemNextPicture;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemLastPicture;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemRandomPicture;
     }
 }
 

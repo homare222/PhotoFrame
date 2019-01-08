@@ -273,6 +273,30 @@ namespace PhotoFrame
         }
 
         //
+        // コンテキストメニューの次の画像をクリック
+        //
+        private void ToolStripMenuItemNextPicture_Click( object sender, EventArgs e )
+        {
+            showNextPicture();
+        }
+
+        //
+        // コンテキストメニューの前の画像をクリック
+        //
+        private void ToolStripMenuItemLastPicture_Click( object sender, EventArgs e )
+        {
+            showPrevPicture();
+        }
+
+        //
+        // コンテキストメニューのランダムをクリック
+        //
+        private void ToolStripMenuItemRandomPicture_Click( object sender, EventArgs e )
+        {
+            showRandomPicture();
+        }
+
+        //
         // コンテキストメニューの最大化をクリック
         //
         private void ToolStripMenuItemChangeFormSize_Click( object sender, EventArgs e )
@@ -551,6 +575,16 @@ namespace PhotoFrame
             if ( mPictIndex < 0 ) {
                 mPictIndex = mPictureList.Count - 1;
             }
+            showPicture();
+        }
+
+        //
+        // 画像をランダムに表示
+        //
+        private void showRandomPicture()
+        {
+            Random r = new Random();
+            mPictIndex = r.Next( 0, (mPictureList.Count - 1) );
             showPicture();
         }
     }

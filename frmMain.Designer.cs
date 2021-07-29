@@ -49,8 +49,10 @@
             // 
             // pctBox
             // 
+            this.pctBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pctBox.BackColor = System.Drawing.Color.White;
-            this.pctBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pctBox.Location = new System.Drawing.Point(0, 0);
             this.pctBox.Margin = new System.Windows.Forms.Padding(0);
             this.pctBox.Name = "pctBox";
@@ -76,7 +78,7 @@
             this.toolStripSeparator2,
             this.ToolStripMenuItemInfo});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(161, 236);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 214);
             // 
             // ToolStripMenuItemNextPicture
             // 
